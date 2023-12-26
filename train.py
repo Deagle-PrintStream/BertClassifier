@@ -8,6 +8,9 @@
 import os
 import torch
 import torch.nn as nn
+import logging
+
+
 from transformers import BertTokenizer, AdamW, BertConfig
 from torch.utils.data import DataLoader
 from model import BertClassifier
@@ -15,6 +18,12 @@ from dataset import CNewsDataset
 from tqdm import tqdm
 from sklearn import metrics
 
+'''
+    bagging may be required since we have too few data
+'''
+
+def train(batch_size:int,device:str,epochs:int,learning_rate:float,nfold:int)->None:
+    pass
 
 def main():
 
@@ -87,7 +96,7 @@ def main():
 
         # 验证
         model.eval()
-        losses = 0      # 损失
+        losses = 0
         pred_labels = []
         true_labels = []
         valid_bar = tqdm(valid_dataloader, ncols=100)
@@ -119,7 +128,7 @@ def main():
         print(report)
 
         # f1 用来判断最优模型
-        f1 = metrics.f1_score(true_labels, pred_labels, labels=valid_dataset.labels_id, average='micro')
+        f1 = metrics.f1_score(true_labels, pred_labels, labels=valid_dataset.labels_id, average='micro')    #or macro?
         
         if not os.path.exists('models'):
             os.makedirs('models')

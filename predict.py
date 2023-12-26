@@ -9,8 +9,10 @@ import torch
 from model import BertClassifier
 from transformers import BertTokenizer, BertConfig
 
+def predict():
+    pass
 
-labels = ['体育', '娱乐', '家居', '房产', '教育', '时尚', '时政', '游戏', '科技', '财经']
+labels = ['domestic', 'foriegn',]
 bert_config = BertConfig.from_pretrained('bert-base-chinese')
 
 # 定义模型

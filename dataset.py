@@ -13,6 +13,33 @@ from torch.utils.data import Dataset
 from transformers import BertTokenizer
 from tqdm import tqdm
 
+from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Subset
+from sklearn.model_selection import KFold
+
+class TextDataset(Dataset):
+    def __init__(self, file_path:str="./dataset/dataset.xlsx", transform=None):
+        self.data = pd.read_excel(file_path)  # Load data from the XLSX file
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        text = self.data.iloc[idx, 0]  #  text in the first column
+        label = self.data.iloc[idx, 1]  # labels in the second column
+
+        if self.transform!=None:
+            text = self.transform(text)
+
+        return text, label
+
+# You can define a custom transform function for text preprocessing if needed
+def text_preprocess(text):
+    # Implement your text preprocessing logic here
+    # This could involve tokenization, vectorization, padding, etc.
+    return text
+
 class CNewsDataset(Dataset):
     def __init__(self, filename):
         # dataset object initialization

@@ -1,8 +1,8 @@
 #type: args
 
+dir: "./dataset/dataset.xlsx"
 seed: 114
 batch_size: 4
-device: 'cuda'
 epochs: 10
 learning_rate: 5e-6
 nfold: 4

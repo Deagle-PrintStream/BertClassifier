@@ -1,0 +1,8 @@
+#type: args for default setting
+
+dir: "./dataset/dataset.xlsx"
+seed: 3407
+batch_size: 4
+epochs: 10
+learning_rate: 5e-6
+nfold: 4

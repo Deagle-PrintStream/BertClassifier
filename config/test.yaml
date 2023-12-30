@@ -1,8 +1,8 @@
-#type: args
+#type: args for program debug
 
 dir: "./dataset/dataset.xlsx"
 seed: 114
 batch_size: 4
-epochs: 10
-learning_rate: 5e-6
-nfold: 4
+epochs: 2
+learning_rate: 1e-3
+nfold: 2

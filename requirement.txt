@@ -1,5 +1,6 @@
 torch
 sklearn
+nltk
 yaml
 tqdm
 logging

@@ -45,31 +45,22 @@ class TextDataset(Dataset):
 
         return input_ids, token_type_ids, attention_mask, label
 
-
-class CNewsDataset(Dataset):
-    def __init__(self, filename):
-        # dataset object initialization
-        self.labels = [
-            "domestic",
-            "foriegn",
+class TextDataset_preload(Dataset):
+    def __init__(self, file_path: str = "./dataset/dataset.xlsx", transform=None):
+        df_dataset = pd.read_excel(file_path)  # Load data from the XLSX file
+        size_dataset=len(df_dataset)
+        self.item_list:list[tuple[np.ndarray, np.ndarray, np.ndarray, int]]=[]
+        self.transform = transform
+        self.labels = [ #labels in raw dataset didn't provide clear meaning
+            "0",
+            "1",
         ]
-        self.labels_id = list(range(len(self.labels)))
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-chinese")
-        self.input_ids = []
-        self.token_type_ids = []
-        self.attention_mask = []
-        self.label_id = []
-        self.load_data(filename)
+        
+        for idx in range(0,size_dataset):
+            text = str(df_dataset.iloc[idx, 0])  #  text in the first column
+            label = int(df_dataset.iloc[idx, 1])  # labels in the second column
 
-    def load_data(self, filename: str = "./dataset/dataset.xlsx") -> None:
-        # read in data from xlsx file
-        print("loading data from:", filename)
-        df = pd.read_excel(filename)
-
-        for i in range(1, len(df) + 1):
-            text, label = df[i, "数据"], df[i, "标签"]
-            # label_id = self.labels.index(label)
-            label_id = int(label)
             token = self.tokenizer(
                 text,
                 add_special_tokens=True,
@@ -77,31 +68,14 @@ class CNewsDataset(Dataset):
                 truncation=True,
                 max_length=512,
             )
-            self.input_ids.append(np.array(token["input_ids"]))
-            self.token_type_ids.append(np.array(token["token_type_ids"]))
-            self.attention_mask.append(np.array(token["attention_mask"]))
-            self.label_id.append(label_id)
-
-        """    
-        with open(filename, 'r', encoding='utf-8') as rf:
-            lines = rf.readlines()
-        for line in tqdm(lines, ncols=100):
-            label, text = line.strip().split('\t')
-            label_id = self.labels.index(label)
-            token = self.tokenizer(text, add_special_tokens=True, padding='max_length', truncation=True, max_length=512)
-            self.input_ids.append(np.array(token['input_ids']))
-            self.token_type_ids.append(np.array(token['token_type_ids']))
-            self.attention_mask.append(np.array(token['attention_mask']))
-            self.label_id.append(label_id)
-        """
-
-    def __getitem__(self, index):
-        return (
-            self.input_ids[index],
-            self.token_type_ids[index],
-            self.attention_mask[index],
-            self.label_id[index],
-        )
+            input_ids = np.array(token["input_ids"])
+            token_type_ids = np.array(token["token_type_ids"])
+            attention_mask = np.array(token["attention_mask"])
+            self.item_list.append((input_ids,token_type_ids,attention_mask,label))
 
     def __len__(self):
-        return len(self.input_ids)
+        return len(self.item_list)
+
+    def __getitem__(self, idx):
+        return self.item_list[idx]
+

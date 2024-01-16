@@ -1,8 +1,10 @@
-#type: args for default setting
+# default args for dataset sized 1600
 
-dir: "./dataset/dataset.xlsx"
+train_path: "./dataset/dataset.xlsx"
+test_path: "./dataset/dataset_test.xlsx"
+device: "cuda"
 seed: 3407
-batch_size: 4
-epochs: 10
-learning_rate: 5e-6
+batch_size: 16
+epochs: 30
+learning_rate: 1.0e-4
 nfold: 4

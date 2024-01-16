@@ -1,4 +1,4 @@
-#type: args for program debug
+# args for program debug
 
 train_path: "./dataset/dataset.xlsx"
 test_path: "./dataset/dataset_test.xlsx"
@@ -6,5 +6,5 @@ device: "cuda"
 seed: 114
 batch_size: 4
 epochs: 1
-learning_rate: 1e-4
+learning_rate: 1.0e-4
 nfold: 2

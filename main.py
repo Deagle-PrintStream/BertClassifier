@@ -11,16 +11,13 @@ import argparse, logging, datetime
 import yaml
 
 import torch
-from torch.utils.data import DataLoader, Subset
+from torch.utils.data import  Subset
 from sklearn.model_selection import KFold
 
 from dataset import TextDataset
 from train import train
 from predict import predict
 
-# for debug predict part
-from model import BertClassifier
-from transformers import BertTokenizer, AdamW, BertConfig
 
 def parse_argument() -> argparse.Namespace:
     """read in arguments from command line, all configuration are put within one yaml file"""
@@ -90,10 +87,6 @@ def cross_validation(
             learning_rate=learning_rate,
             device=device,
         )
-        
-        bert_config = BertConfig.from_pretrained("bert-base-chinese")
-        num_labels = 2  #   two labels: 1 and 0
-        my_model=BertClassifier(bert_config, num_labels).to(device)  # init model
         
         # Validation loop
         logging.info("validation loop")

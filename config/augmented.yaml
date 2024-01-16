@@ -1,0 +1,10 @@
+# default args for dataset sized 8000
+
+train_path: "./dataset/dataset_augmented.xlsx"
+test_path: "./dataset/dataset_test.xlsx"
+device: "cuda"
+seed: 3407
+batch_size: 32
+epochs: 50
+learning_rate: 5.0e-5
+nfold: 4

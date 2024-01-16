@@ -1,4 +1,6 @@
 torch
+pandas
+numpy
 sklearn
 nltk
 yaml

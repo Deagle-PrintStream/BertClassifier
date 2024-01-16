@@ -1,9 +1,10 @@
-# coding: utf-8
-# @File: train.py
-# @Author: HE D.H.
-# @Email: victor-he@qq.com
-# @Time: 2020/10/10 17:14:07
-# @Description:
+r"""
+    file: dataset.py
+    author: Swayee
+    email:  suiyi_liu@mail.ustc.edu.cn
+    time:   2024/1/15
+    encoding:   utf-8
+"""
 
 import torch
 import torch.nn as nn

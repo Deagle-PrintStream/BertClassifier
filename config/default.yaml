@@ -4,7 +4,7 @@ train_path: "./dataset/dataset.xlsx"
 test_path: "./dataset/dataset_test.xlsx"
 device: "cuda"
 seed: 3407
-batch_size: 16
+batch_size: 4
 epochs: 30
 learning_rate: 1.0e-4
 nfold: 4

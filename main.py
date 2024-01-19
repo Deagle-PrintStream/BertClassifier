@@ -22,7 +22,7 @@ from predict import predict
 def parse_argument() -> argparse.Namespace:
     """read in arguments from command line, all configuration are put within one yaml file"""
     parser = argparse.ArgumentParser(description="cat vs dog classifier")
-    parser.add_argument("--config", type=str, default="./config/test.yaml")
+    parser.add_argument("--config", type=str, default="./config/default.yaml")
 
     args = parser.parse_args()
     return args
